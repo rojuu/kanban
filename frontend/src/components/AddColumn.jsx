@@ -1,4 +1,24 @@
 import React, { useState } from 'react'
+import styled from 'styled-components'
+
+const Container = styled.div`
+    margin: 8px;
+    border: 1px solid black;
+    border-radius: 2px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
+`
+
+const Button = styled.button`
+    margin: auto;
+`
+
+const Input = styled.input`
+    margin: auto;
+`
 
 function AddColumn(props) {
     const [showNewColumnButton, setShowNewColumnButton] = useState(true)
@@ -30,13 +50,13 @@ function AddColumn(props) {
     }
 
     return (
-        <div>
+        <Container>
         {
             showNewColumnButton
-                ? <button onClick={() => setShowNewColumnButton(false) }>New Column</button>
-                : <input type='text' value={value} onChange={e => setValue(e.target.value)} onBlur={handleInputComplete} />
+                ? <Button onClick={() => setShowNewColumnButton(false) }>New Column</Button>
+                : <Input type='text' value={value} onChange={e => setValue(e.target.value)} onBlur={handleInputComplete} />
         }
-        </div>
+        </Container>
     )
 }
 
