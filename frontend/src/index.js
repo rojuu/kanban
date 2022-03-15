@@ -5,6 +5,8 @@ import Board from './components/Board'
 import Register from './components/Register';
 import Login from './components/Login';
 
+import './index.css'
+
 function getToken() {
     const tokenString = localStorage.getItem('token')
     const userToken = JSON.parse(tokenString)

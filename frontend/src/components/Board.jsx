@@ -114,6 +114,7 @@ function Board(props) {
 
     return (
         <DragDropContext onDragEnd={onDragEnd}>
+            <Logout />
             <Droppable droppableId='all-columns' direction='horizontal' type='column'>
                 {provided => (
                     <Container {...provided.droppableProps} ref={provided.innerRef}>
@@ -122,12 +123,11 @@ function Board(props) {
                             const tasks = column.taskIds.map(taskId => board.tasks[taskId])
                             return <Column key={column.id} column={column} tasks={tasks} index={index} board={board} setBoard={setBoard} />
                         })}
-                        <AddColumn board={board} setBoard={setBoard} />
                     {provided.placeholder}
+                    <AddColumn board={board} setBoard={setBoard} />
                     </Container>
                 )}
             </Droppable>
-            <Logout />
         </DragDropContext>
     )
 }

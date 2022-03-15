@@ -1,30 +1,41 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 const Container = styled.div`
-    margin: 8px;
-    border: 1px solid black;
-    border-radius: 2px;
-    width: 200px;
+    width: 15rem;
+    margin: 0.3rem;
+    margin-top: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding-bottom: 10px;
 `
 
-const Button = styled.button`
-    margin: auto;
+const Button = styled.div`
+    margin-top: 0.5rem;
+    padding: 0.7rem;
+    background-color: #ebecf0;
+    border-radius: 3px;
 `
 
 const Input = styled.input`
-    margin: auto;
+    width: 12.5rem;
+    margin: 0.5rem;
+    padding: 0.7rem 0.7rem 0.7rem 0.7rem;
 `
 
 function AddColumn(props) {
     const [showNewColumnButton, setShowNewColumnButton] = useState(true)
     const [value, setValue] = useState('')
 
+    const addInput = useRef(null);
+
+    useEffect(()=>{
+        if (!showNewColumnButton) {
+            addInput.current?.focus()
+        }
+    }, [showNewColumnButton])
+
     function handleInputComplete(event) {
+        event.preventDefault()
         setShowNewColumnButton(true)
         addNewColumn(value)
         setValue('')
@@ -53,8 +64,23 @@ function AddColumn(props) {
         <Container>
         {
             showNewColumnButton
-                ? <Button onClick={() => setShowNewColumnButton(false) }>New Column</Button>
-                : <Input type='text' value={value} onChange={e => setValue(e.target.value)} onBlur={handleInputComplete} />
+                ? <Button onClick={() => setShowNewColumnButton(false)}>NEW COLUMN</Button>
+                : (
+                <form onSubmit={handleInputComplete}>
+                    <Input
+                        type='text'
+                        value={value}
+                        onChange={e => setValue(e.target.value)}
+                        onBlur={() => {
+                            if (!showNewColumnButton) {
+                                setValue('')
+                                setShowNewColumnButton(true)
+                            }
+                        }}
+                        ref={addInput}
+                    />
+                </form>
+                )
         }
         </Container>
     )

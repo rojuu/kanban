@@ -1,13 +1,19 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Draggable } from 'react-beautiful-dnd'
+import DeleteIcon from '@mui/icons-material/DeleteOutline'
 
 const Container = styled.div`
-    border: 1px solid black;
+    display: flex;
     border-radius: 2px;
-    padding: 8px;
-    margin-bottom: 8px;
-    background-color: white;
+    padding: 0.5rem;
+    padding-top: 1rem;
+    background-color: #ffffff;
+    margin-bottom: 0.5rem;
+    width: 90%;
+`
+const Delete = styled.span`
+    margin-left: auto;
 `
 
 function Task(props) {
@@ -37,7 +43,7 @@ function Task(props) {
             {provided => (
                 <Container {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
                     {props.task.content}
-                    <span onClick={() => deleteTask(props.columnId, props.index, props.task.id)}> x</span>
+                    <Delete style={{marginLeft:'auto'}} onClick={() => deleteTask(props.columnId, props.index, props.task.id)}> <DeleteIcon /></Delete>
                 </Container>
             )}
         </Draggable>

@@ -1,26 +1,37 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Draggable, Droppable } from 'react-beautiful-dnd'
+import DeleteIcon from '@mui/icons-material/Delete'
 import Task from './Task'
 import AddTask from './AddTask'
 
 const Container = styled.div`
-    margin: 8px;
-    border: 1px solid black;
-    border-radius: 2px;
-    width: 200px;
+    margin: 0.5rem;
+    background-color: #ebecf0;
+    border-radius: 3px;
+    width: 15rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-bottom: 10px;
 `
 
-const Title = styled.h3`
-    padding: 5px;
+const Title = styled.h1`
+    display: flex;
+    align-items: left;
+    margin: 0.1rem 0.1rem 0.3rem 0.1rem;
+    padding: 0.5rem  0.5rem  0.5rem  0.5rem;
+    width: 70%;
+    font-size: 22px;
 `
 
 const TaskList = styled.div`
-    padding: 8px;
+    padding: 0.5rem;
+    width: 80%;
+`
+
+const DeleteButton = styled.span`
+    margin-left: auto;
 `
 
 function Column(props) {
@@ -51,7 +62,7 @@ function Column(props) {
                 <Container {...provided.draggableProps} ref={provided.innerRef}>
                     <Title {...provided.dragHandleProps}>
                         {props.column.title}
-                        <span onClick={() => deleteColumn(props.column.id, props.index)}> x</span>
+                        <DeleteButton onClick={() => deleteColumn(props.column.id, props.index)}><DeleteIcon/></DeleteButton>
                     </Title>
                     <Droppable droppableId={props.column.id} type='task'>
                         {provided => (

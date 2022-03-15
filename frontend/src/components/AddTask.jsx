@@ -1,10 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import styled from 'styled-components';
+
+const Container = styled.div`
+    border-radius: 2px;
+    padding: 0.5rem;
+    background-color: lightgray;
+    margin-bottom: 0.5rem;
+    width: 90%;
+`
+const Input = styled.input`
+    width: 100%;
+    height: 100%;
+    padding: 0;
+`
+
 
 function AddTask(props) {
     const [showNewTaskButton, setShowNewTaskButton] = useState(true)
     const [value, setValue] = useState('')
 
+    const addInput = useRef(null);
+    
+    useEffect(()=>{
+        if (!showNewTaskButton) {
+            addInput.current?.focus()
+        }
+    }, [showNewTaskButton])
+
     function handleInputComplete(event) {
+        event.preventDefault()
         setShowNewTaskButton(true)
         addNewTask(props.columnId, value)
         setValue('')
@@ -36,13 +60,28 @@ function AddTask(props) {
     }
 
     return (
-        <div>
+        <Container onClick={() => setShowNewTaskButton(false) }>
         {
             showNewTaskButton
-                ? <button onClick={() => setShowNewTaskButton(false) }>New</button>
-                : <input type='text' value={value} onChange={e => setValue(e.target.value)} onBlur={handleInputComplete} />
+                ? <div>ADD NEW TASK</div>
+                : (
+                <form onSubmit={handleInputComplete}>
+                    <Input
+                        type='text'
+                        value={value}
+                        onChange={e => setValue(e.target.value)}
+                        onBlur={() => {
+                            if (!showNewTaskButton) {
+                                setValue('')
+                                setShowNewTaskButton(true)
+                            }
+                        }}
+                        ref={addInput}
+                    />
+                </form>
+                )
         }
-        </div>
+        </Container>
     )
 }
 
