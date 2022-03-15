@@ -35,3 +35,8 @@ FastAPI has a nice docs site that you can use to test the backend. It can be fou
 React will start normally in `http://localhost:3000/`
 
 The database can be fiddled with from `http://localhost:8080`. Make sure to set the database from the dropdown to PostgresSQL. The default user is `postgres` and for the purposes of testing the default password is hardcoded to be `Password1`.
+
+
+## Showcase
+
+https://user-images.githubusercontent.com/15312785/158453503-6f861623-6a23-46fc-9ecf-42ce9d2a3d6f.mp4
